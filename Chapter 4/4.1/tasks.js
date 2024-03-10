@@ -8,12 +8,14 @@
 // // Измените значение свойства name на Pete.
 // // Удалите свойство name из объекта.
 // // решение
+() => {
+  const user = {};
+  user.name = "John";
+  user.surname = "Smith";
+  user.name = "Pete";
+  delete user.name;
+};
 
-// const user = {};
-// user.name = "John";
-// user.surname = "Smith";
-// user.name = "Pete";
-// delete user.name;
 // _________________________________*************************************___________________________________
 // Проверка на пустоту
 // важность: 5
@@ -28,29 +30,31 @@
 // schedule["8:30"] = "get up";
 
 // alert( isEmpty(schedule) ); // false
+() => {
+  function isEmpty(obj) {
+    for (let key in obj) {
+      return false;
+    }
+    return true;
+  }
 
-// function isEmpty(obj) {
-//   for (let key in obj) {
-//     return false;
-//   }
-//   return true;
-// }
+  let schedule = {};
+  alert(isEmpty(schedule));
+  schedule["8:30"] = "get up";
+  alert(isEmpty(schedule));
+};
 
-// let schedule = {};
-// alert(isEmpty(schedule));
-// schedule["8:30"] = "get up";
-// alert(isEmpty(schedule));
 // __________________________________******************************************____________________
 // Объекты-константы?
 // важность: 5
 // Можно ли изменить объект, объявленный с помощью const? Как вы думаете?
 
-// const user = {
-//   name: "John"
-// };
+const user = {
+  name: "John",
+};
 
-// // это будет работать?
-// user.name = "Pete";
+// это будет работать?
+user.name = "Pete";
 
 // Нельзя меня сам объект, но можно менять его содержимое.
 
@@ -87,11 +91,11 @@
 //   Pete: 130,
 // };
 
-// let sum = 0;
-// for (let userSalary in salaries) {
-//   sum += salaries[userSalary];
-// }
-// alert(sum);
+let sum = 0;
+for (let userSalary in salaries) {
+  sum += salaries[userSalary];
+}
+alert(sum);
 
 // _________________________****************___________________________________________
 // Умножаем все числовые свойства на 2
@@ -119,20 +123,20 @@
 
 // P.S. Используйте typeof для проверки, что значение свойства числовое.
 
-// let menu = {
-//   width: 200,
-//   height: 300,
-//   title: "My menu",
-// };
-// console.log(menu);
+let menu = {
+  width: 200,
+  height: 300,
+  title: "My menu",
+};
+console.log(menu);
 
-// function multiplyNumberic(obj) {
-//   for (let key in obj) {
-//     if (typeof obj[key] === "number") {
-//       obj[key] *= 2;
-//     }
-//   }
-// }
-// multiplyNumberic(menu);
+function multiplyNumberic(obj) {
+  for (let key in obj) {
+    if (typeof obj[key] === "number") {
+      obj[key] *= 2;
+    }
+  }
+}
+multiplyNumberic(menu);
 
-// console.log(menu);
+console.log(menu);

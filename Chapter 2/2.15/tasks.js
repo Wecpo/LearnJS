@@ -38,13 +38,15 @@ function checkAge(age) {
 //   }
 // }
 
-// function checkAge(age) {
-//   return age > 18 ? true : confirm(`Родители разрешили?`);
-// }
+() => {
+  function checkAge(age) {
+    return age > 18 ? true : confirm(`Родители разрешили?`);
+  }
 
-// function checkAge(age) {
-//   return age > 18 || confirm(`Родители разрешили?`);
-// }
+  function checkAge(age) {
+    return age > 18 || confirm(`Родители разрешили?`);
+  }
+};
 
 // Перепишите функцию, чтобы она делала то же самое, но без if, в одну строку.
 
@@ -59,17 +61,19 @@ function checkAge(age) {
 
 // Пример вызовов:
 
-// min(2, 5) == 2;
-// min(3, -1) == -1;
-// min(1, 1) == 1;
+() => {
+  min(2, 5) == 2;
+  min(3, -1) == -1;
+  min(1, 1) == 1;
 
-// function min(a, b) {
-//   return a < b ? a : b;
-// }
-// console.log(min(2, 5));
-// console.log(min(3, -1));
+  function min(a, b) {
+    return a < b ? a : b;
+  }
+  console.log(min(2, 5));
+  console.log(min(3, -1));
 
-// console.log(min(1, 1));
+  console.log(min(1, 1));
+};
 
 // Функция pow(x,n)
 // важность: 4
