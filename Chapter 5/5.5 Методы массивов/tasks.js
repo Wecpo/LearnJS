@@ -421,3 +421,31 @@ usersMapped = [
   let usersById = groupById(users);
   console.log(usersById);
 };
+
+() => {
+  let arrayLike = {
+    name: "max",
+    age: 28,
+    length: 9,
+  };
+  let arr = Array.from(arrayLike);
+  console.log(arr);
+};
+() => {
+  // Complete the solution so that the function will
+  //  break up camel casing, using a space between words.
+
+  // Example
+  // "camelCasing"  =>  "camel Casing"
+  // "identifier"   =>  "identifier"
+  // ""             =>  ""
+  function solution(string) {
+    return string.split("").map((item, index, array) => {
+      if (item.toUpperCase() === item) {
+        array.splice(index, 1, [[" "], [item]]);
+      }
+      return item;
+    });
+  }
+  solution("camelCase");
+};
