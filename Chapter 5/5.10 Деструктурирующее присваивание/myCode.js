@@ -96,23 +96,107 @@
 
 // Например, здесь берутся только первые два элемента, а остальные просто игнорируются:
 
-// let [name1, name2] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+() => {
+  let [name1, name2] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
 
-// alert(name1); // Julius
-// alert(name2); // Caesar
-// // Дальнейшие элементы нигде не присваиваются
-// Если мы хотим не просто получить первые значения, но и собрать все остальные, то мы можем добавить ещё один параметр, который получает остальные значения, используя оператор «остаточные параметры» – троеточие ("..."):
+  alert(name1); // Julius
+  alert(name2); // Caesar
+  // Дальнейшие элементы нигде не присваиваются
+  // Если мы хотим не просто получить первые значения, но и собрать все остальные, то мы можем добавить ещё один параметр, который получает остальные значения, используя оператор «остаточные параметры» – троеточие ("..."):
+};
 
-// let [name1, name2, ...rest] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
+() => {
+  let [name1, name2, ...rest] = [
+    "Julius",
+    "Caesar",
+    "Consul",
+    "of the Roman Republic",
+  ];
 
-// // rest это массив элементов, начиная с 3-го
-// alert(rest[0]); // Consul
-// alert(rest[1]); // of the Roman Republic
-// alert(rest.length); // 2
-// Переменная rest является массивом из оставшихся элементов.
+  // rest это массив элементов, начиная с 3-го
+  alert(rest[0]); // Consul
+  alert(rest[1]); // of the Roman Republic
+  alert(rest.length); // 2
+  // Переменная rest является массивом из оставшихся элементов.
 
-// Вместо rest можно использовать любое другое название переменной, просто убедитесь, что перед переменной есть три точки и она стоит на последнем месте в деструктурирующем присваивании.
+  //   Вместо rest можно использовать любое другое название переменной, просто убедитесь, что перед переменной есть три точки и она стоит на последнем месте в деструктурирующем присваивании.
+};
 
-// let [name1, name2, ...titles] = ["Julius", "Caesar", "Consul", "of the Roman Republic"];
-// // теперь titles = ["Consul", "of the Roman Republic"]
+() => {
+  let [name1, name2, ...titles] = [
+    "Julius",
+    "Caesar",
+    "Consul",
+    "of the Roman Republic",
+  ];
+  // теперь titles = ["Consul", "of the Roman Republic"]
+};
+
 // Значения по умолчанию
+() => {
+  let [name = "Guest", surname = "Anonymous"] = ["Julius"];
+  console.log(name, surname);
+};
+
+() => {
+  let [firstName, surName] = [];
+  console.log(firstName, surName); // undefined undefined
+};
+
+() => {
+  let [name = prompt("name?"), surname = prompt("surname?")] = ["Julius"];
+
+  console.log(name); // Julius (из массива)
+  console.log(surname); // результат prompt
+};
+
+// Деструктуризация объекта
+
+() => {
+  // Порядок не имеет значения
+  let options = {
+    title: "Menu",
+    width: 100,
+    height: 200,
+  };
+
+  let { title, width1, height } = options;
+
+  console.log(title, width1, height);
+};
+
+// Вложенная деструктуризация
+() => {
+  let opt = {
+    size: {
+      width: 100,
+      height: 200,
+    },
+    items: ["Cake", "Donut"],
+    extra: true,
+  };
+
+  let {
+    size: { width, height },
+    items: [item1, item2],
+    title = "Menu",
+  } = opt;
+  console.log(width, height, item1, item2, title);
+};
+
+// Умные параметры функций
+() => {
+  let options = {
+    items: ["Item1", "Item2"],
+  };
+  function showMenu({
+    title = "Untitled",
+    width = 200,
+    height = 100,
+    items = [],
+  }) {
+    console.log(title, width, height); // My menu 200 100
+    console.log(items); // Item1 Item2
+  }
+  showMenu([1, 2, 3]);
+};
