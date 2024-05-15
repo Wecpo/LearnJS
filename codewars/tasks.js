@@ -179,3 +179,104 @@
   console.log(leastLarger([4, 1, 3, 5, 6], 0)); // Выведет: 3
   console.log(leastLarger([4, 1, 3, 5, 6], 4)); // Выведет: -1
 };
+
+// Задача 1
+
+// Напишите функцию factorial(n), которая возвращает n!, используя рекурсию.
+
+// Факториал натурального числа – это число, умноженное на "себя минус один", затем на "себя минус два", и так далее до 1. Факториал n обозначается как n!
+
+function factorial(n) {
+  if (n === 1) {
+    return n;
+  }
+  return factorial(n - 1) * n;
+}
+
+console.log(factorial(5));
+
+// Задача 2
+// Допустим, у нас есть объект, представляющий структуру древовидной иерархии каталогов:
+
+let directory = {
+  name: "Root",
+  type: "directory",
+  children: [
+    {
+      name: "Folder1",
+      type: "directory",
+      children: [
+        {
+          name: "Subfolder1",
+          type: "directory",
+          children: [],
+        },
+        {
+          name: "Subfolder2",
+          type: "directory",
+          children: [],
+        },
+      ],
+    },
+    {
+      name: "Folder2",
+      type: "directory",
+      children: [
+        {
+          name: "Subfolder3",
+          type: "directory",
+          children: [],
+        },
+        {
+          name: "File1.txt",
+          type: "file",
+        },
+      ],
+    },
+    {
+      name: "File2.txt",
+      type: "file",
+    },
+  ],
+};
+
+let count = 0;
+function printDirectoryStructure(directory, count) {
+  let fillArr = new Array(count).fill(" ").join("");
+  console.log(fillArr + directory.name);
+  if (directory.type === "directory") {
+    count++;
+    for (let structure of directory.children) {
+      printDirectoryStructure(structure, count);
+    }
+  }
+}
+
+printDirectoryStructure(directory, count);
+
+// Напишите функцию printDirectoryStructure, которая рекурсивно выводит структуру каталогов, начиная с корневого каталога.
+
+// Пример:
+// printDirectoryStructure(directory)
+// вернет:
+//    Root
+//     Folder1
+//      Subfolder1
+//      Subfolder2
+//     Folder2
+//      Subfolder3
+//      File1.txt
+//     File2.txt
+
+// Задача 3
+// Напишите функцию, которая упрощает дроби до их наименьшей формы!
+// Дроби будут представлены в виде массива строго положительных целых чисел,
+// а упрощенная дробь должна быть возвращена также в виде массива:
+
+// входные данные: [числитель, знаменатель]
+// выходные данные: [упрощенный числитель, упрощенный знаменатель]
+
+// Пример:
+// fractions([45, 120]); // вернет [3, 8]
+
+function fractions(arr) {}
