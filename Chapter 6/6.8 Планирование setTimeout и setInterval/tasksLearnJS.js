@@ -40,3 +40,15 @@
 
   printNumbers(1, 5);
 };
+
+let counter = 0;
+
+setTimeout(function log() {
+  counter++;
+  console.log(counter);
+  setTimeout(log, 1000);
+}, 1000);
+
+setTimeout(() => {
+  setTimeout(() => console.log(1), 1000);
+}, 1000);

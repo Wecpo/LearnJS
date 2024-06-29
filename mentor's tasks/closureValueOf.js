@@ -2,4 +2,19 @@
 // Создать функцию, которая складывает аргументы до тех пор
 // пока не будет вызван ValueOf()
 
-function foo(args) {}
+function func(...a) {
+  let currentSum = a.reduce((acc, item) => (acc += item));
+
+  function f(...b) {
+    currentSum += b.reduce((acc, item) => (acc += item));
+    return f;
+  }
+
+  f.valueOf = function () {
+    return currentSum;
+  };
+
+  return f;
+}
+
+func(1, 2, 3, 4)(1).valueOf();

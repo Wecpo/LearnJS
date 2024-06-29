@@ -121,3 +121,175 @@
 
   alert(`Вызвана ${sayHi.counter} раза`); // Вызвана 2 раза
 };
+
+// Иногда свойства функции могут использоваться вместо замыканий. Например, мы можем
+// переписать функцию-счетчик из главы Область видимости переменных, замыкание,
+// используя её свойство:
+
+() => {
+  function makeCounter() {
+    // вместо
+    // let count = 0
+    counter.count = 0;
+    function counter() {
+      return counter.count++;
+    }
+
+    return counter;
+  }
+
+  let counter = makeCounter();
+  alert(counter()); // 0
+  alert(counter()); // 1
+};
+
+// Свойство count теперь хранится прямо в фунеции, а не в ее внешнем лексическом окружении.
+//
+// Это хуже или лучше чем использовать замыкание?
+//
+// Основное отличие в том, что при использовании замыкания, мы не можем получить
+// доступ к переменной извне, а при использовании как свойства функции, мы можем его получить:
+() => {
+  function makeCounter() {
+    function counter() {
+      return counter.count++;
+    }
+
+    counter.count = 0;
+
+    return counter;
+  }
+
+  let counter = makeCounter();
+
+  counter.count = 10;
+  alert(counter()); // 10
+};
+
+// Поэтому выбор зависит от наших целей.
+//
+//
+//
+///////// NAMED FUNCTION EXPRESSION
+//
+// Named Function Expression или NFE - это термин для Function Expression, у которого
+// есть имя.
+//
+// Например, давайте объявим Function Expression:
+() => {
+  let sayHi = function (who) {
+    console.log(`Hello, ${who}`);
+  };
+};
+
+// И присвоим ему имя:
+() => {
+  let sayHi = function func(who) {
+    console.log(`Hello, ${who}`);
+  };
+};
+
+// Чего мы здесь достигли? Какова цель этого дополнительного имения 'func'?
+//
+// Для начала заметим, что функция всё еще задана как Function Expression. Добавление
+// 'func' после function не превращает объявление в Function Declaration, потому что
+// оно всё еще является частью выражения присваивания.
+//
+// Добавление такого имени ничего не ломает.
+//
+// Функция всё еще доступна как sayHi():
+
+() => {
+  let sayHi = function func(who) {
+    alert(`Hello, ${who}`);
+  };
+
+  sayHi("John"); // Hello, John
+};
+
+// Есть две важные особенности имени 'func', ради которого оно дается:
+// 1. Оно позволяет функции ссылаться на себя же.
+// 2. Оно не доступно за пределами функции.
+//
+// Например, ниже функция sayHi вызывает себя с 'Guest', если НЕ передан параметр 'who':
+() => {
+  let sayHi = function func(who) {
+    if (who) {
+      console.log(`Hello, ${who}`);
+    } else {
+      func("Guest"); // использует func, чтобы снова вызвать себя же
+    }
+  };
+
+  sayHi(); // Hello, Guest
+
+  // А вот так - не сработает:
+  func(); // Ошибка , func не определена (недоступна вне функции)
+};
+
+// Почему мы использует 'func'? Почему просто не использовать sayHi для вложенного вызова?
+//
+// Вообще, обычно мы можем так поступить:
+() => {
+  let sayHi = function (who) {
+    if (who) {
+      console.log(`Hello, ${who}`);
+    } else {
+      sayHi("Guest");
+    }
+  };
+
+  sayHi(); // Hello, Guest
+  sayHi("Max"); // Hello, Max
+};
+
+// Однако, у этого кода есть проблема, которая заключается в том, что значение sayHi
+// может быть изменено. Функция может быть присвоена другой переменной, и тогда код
+// начнет выдавать ошибки:
+
+() => {
+  let sayHi = function (who) {
+    if (who) {
+      alert(`Hello, ${who}`);
+    } else {
+      sayHi("Guest"); // Ошибка: sayHi не является функцией
+    }
+  };
+
+  let welcome = sayHi;
+  console.log(`welcome`, welcome);
+  console.log("sayHi", sayHi);
+  sayHi = null;
+  console.log("welcome after nullish", welcome);
+  console.log(`sayHi after nullish`, sayHi);
+
+  welcome(); // Ошибка, вложенный вызов sayHi больше не работает!
+};
+
+// Так происходит, потому что функция берёт sayHi из внешнего лексического окружения.
+// Так как локальная переменная sayHi отсутствует, используется внешняя.
+// И на момент вызова эта внешняя sayHi равна null.
+//
+// Необязательное имя, которое можно вставить в Function Expression,
+// как раз и призвано решать такого рода проблемы.
+
+// Давайте используем его, чтобы исправить наш код:
+
+() => {
+  let sayHi = function func(who) {
+    if (who) {
+      alert(`Hello, ${who}`);
+    } else {
+      func("Guest"); // Теперь всё в порядке
+    }
+  };
+
+  let welcome = sayHi;
+  console.log(`welcome`, welcome);
+  console.log("sayHi", sayHi);
+  sayHi = null;
+  console.log("welcome after nullish", welcome);
+  console.log(`sayHi after nullish`, sayHi);
+
+  welcome(); // Hello, Guest (вложенный вызов работает)
+};
