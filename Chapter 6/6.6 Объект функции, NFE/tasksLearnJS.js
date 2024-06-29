@@ -91,12 +91,22 @@
 
 () => {
   function sum(a) {
-    debugger;
+    let currentSum = a;
+    function foo(b) {
+      currentSum += b;
+      return foo;
+    }
+    foo[Symbol.toPrimitive] = function (hint) {
+      if (hint === "default") {
+        return currentSum;
+      }
+    };
+    return foo;
   }
 
-  sum(1)(2); //== 3; // 1 + 2
-  sum(1)(2)(3); //== 6; // 1 + 2 + 3
-  sum(5)(-1)(2); // == 6;
-  sum(6)(-1)(-2)(-3); //== 0;
-  sum(0)(1)(2)(3)(4)(5); //== 15;
+  sum(1)(2) == 3; // 1 + 2
+  sum(1)(2)(3) == 6; // 1 + 2 + 3
+  sum(5)(-1)(2) == 6;
+  sum(6)(-1)(-2)(-3) == 0;
+  sum(0)(1)(2)(3)(4)(5) == 15;
 };
