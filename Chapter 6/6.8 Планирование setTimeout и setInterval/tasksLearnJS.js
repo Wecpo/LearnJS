@@ -26,19 +26,19 @@
 
 () => {
   // setTimeout
-  function printNumbers(from, to) {
+  function printNumber(from, to) {
     let current = from;
     setTimeout(function log() {
       console.log(current);
-      if (current < to) {
-        current++;
-        setTimeout(log, 1000);
+
+      const id = setTimeout(log, 1000);
+      if (current === to) {
+        clearTimeout(id);
       }
-      clearTimeout(setTimeoutId);
+      current++;
     }, 1000);
   }
-
-  printNumbers(1, 5);
+  printNumber(1, 5);
 };
 
 let counter = 0;
