@@ -206,3 +206,22 @@
   alert(worker.slow(3, 5)); // работает
   alert("Again " + worker.slow(3, 5)); // аналогично (из кеша)
 };
+
+() => {
+  //test
+  function test() {
+    console.log(arguments);
+    for (let i of arguments) {
+      console.log(i);
+    }
+  }
+  const obj = {
+    name: "max",
+  };
+  const arr = [1, 2, 3];
+  const str = "445566";
+  // test.apply(obj, arr);
+  // test.call(obj, ...arr);
+  test.apply(obj, Array.from(str));
+  test.call(obj, str);
+};

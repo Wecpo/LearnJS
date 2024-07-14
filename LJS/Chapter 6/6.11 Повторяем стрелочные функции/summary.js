@@ -49,6 +49,24 @@
 //  При получении значения this – оно, как обычная переменная,
 //  берётся из внешнего лексического окружения.
 
+() => {
+  const obj = { name: "max" };
+
+  const getThis = () => {
+    console.log(this);
+  };
+  let a = getThis.bind(obj);
+  a();
+
+  function getThis1() {
+    console.log(this.name);
+  }
+  const b = getThis1.bind(obj);
+  getThis1.bind(obj);
+  getThis1();
+  b();
+};
+
 // Стрелочные функции не имеют «arguments»
 // У стрелочных функций также нет переменной arguments.
 
