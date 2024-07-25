@@ -83,7 +83,12 @@ const helloWorld = Hello.helloWorld();
   // false
 };
 
-// Решение
+//
+//
+//
+// Решение  ===>
+// ===>
+// ===>
 type User = {
   email: string;
 };

@@ -6,7 +6,7 @@ const user = {
 
 // Поменять тип свойств нельзя
 // Type 'number' is not assignable to type 'string'.
-//  user.firstName = 7;
+// user.firstName = 7;
 //
 //
 //
