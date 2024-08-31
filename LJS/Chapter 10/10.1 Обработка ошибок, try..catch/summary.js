@@ -28,7 +28,7 @@
 
 // Давайте рассмотрим примеры.
 
-// Пример без ошибок: выведет alert (1) и (2):
+// Пример без ошибок: выведет console.log (1) и (2):
 
 () => {
   try {
@@ -540,7 +540,7 @@
     }
   }
 
-  console.log(func()); // сначала срабатывает alert из finally, а затем этот код
+  console.log(func()); // сначала срабатывает console.log из finally, а затем этот код
 };
 
 // try..finally
@@ -606,7 +606,7 @@
 () => {
   // <script>
   window.onerror = function (message, url, line, col, error) {
-    alert(`${message}\n В ${line}:${col} на ${url}`);
+    console.log(`${message}\n В ${line}:${col} на ${url}`);
   };
 
   function readData() {
