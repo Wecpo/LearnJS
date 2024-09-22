@@ -423,3 +423,71 @@
 
   // 1 2 7 3 5 6 4
 };
+
+() => {
+  console.log("A");
+  setTimeout(() => console.log("B"), 0);
+  Promise.resolve().then(() => console.log("C"));
+  Promise.resolve().then(() => {
+    console.log("D");
+    setTimeout(() => console.log("E"), 0);
+  });
+  console.log("F");
+
+  // A F C D B E
+};
+
+() => {
+  async function asyncFunc() {
+    console.log("Async Start");
+    await Promise.resolve();
+    console.log("Async End");
+  }
+
+  console.log("Script Start");
+  asyncFunc();
+
+  setTimeout(() => {
+    console.log("Timeout");
+  }, 0);
+
+  console.log("Script End");
+
+  // Script Start Async Start Script End Async End Timeout
+};
+
+() => {
+  async function foo() {
+    console.log("foo1");
+    await bar();
+    console.log("foo2");
+  }
+
+  async function bar() {
+    console.log("bar");
+  }
+
+  console.log("script start");
+  foo();
+  console.log("script end");
+
+  // script start foo1 bar foo2 script end
+};
+
+() => {
+  async function func1() {
+    console.log("func1 start");
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    console.log("func1 end");
+  }
+
+  async function func2() {
+    console.log("func2 start");
+    await func1();
+    console.log("func2 end");
+  }
+
+  console.log("main start");
+  func2();
+  console.log("main end");
+};
